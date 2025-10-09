@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { IdService } from './utils/id/id.service';
 import { UtilsModule } from './utils/utils.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
-  imports: [UsersModule, UtilsModule],
+  imports: [UsersModule, UtilsModule, LoggerModule.register('Users APP')],
   controllers: [AppController],
   providers: [AppService, IdService],
 })

@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 
 @Injectable()
 export class IdService {
-    generate(){
+    generate(){//Genera un uuid tipo cadena 
         return randomUUID();
     }
 }
