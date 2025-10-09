@@ -1,25 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import {CreateUserDto} from './dto/create-user.dto';
+import { IdService } from '../utils/id/id.service';
 
 @Injectable()
 export class UsersService {
+    constructor(private readonly idService:IdService){}
 
     private users=[
-        {id:1,name:'Ana'},
-        {id:2,name:'Paola'},
+        {id:'1',name:'Ana'},
+        {id:'2',name:'Paola'},
     ];
 
     findAll(){
         return this.users;
     }
 
-    findOne(id:number){
+    findOne(id:string){
         return this.users.find((data)=>data.id==id);
     }
 
     //se implementa undto para el formato 
     create(dto:CreateUserDto){
-        const newUser={id:Date.now(),...dto};
+        const newUser = {id:this.idService.generate(),...dto};
         this.users.push(newUser);
         return newUser;
     }
