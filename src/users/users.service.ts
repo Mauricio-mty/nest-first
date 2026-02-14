@@ -6,18 +6,18 @@ import { LoggerService } from '../logger/logger.service';
 @Injectable()
 export class UsersService {
     //injeccion del provider del uuidn por medio del constructor
-    constructor(
+  /*  constructor(
         //agregando los providers
         private readonly idService:IdService,
         private readonly logger:LoggerService,
-    ){} 
+    ){} */
 
-
+/*
     private users=[
         {id:'1',name:'Ana'},
         {id:'2',name:'Paola'},
     ];
-
+*/
     findAll(){
         //implementacion de modulo dinamico
         this.logger.log(`Listando ${this.users.length} usuarios`);
