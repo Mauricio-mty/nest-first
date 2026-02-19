@@ -20,11 +20,13 @@ export class UsersService {
     ){} 
     
 
-    findAll():Promise<User[]>{
+   async findAll():Promise<User[]>{
+        this.logger.log(`Finding users: ${await this.userRepository.count()}`);
         return this.userRepository.find();
     }
 
     findOne(id:string){
+        this.logger.log(`Finding user with id`);
         return this.userRepository.findOneBy({id:id});
     }
 
@@ -33,6 +35,7 @@ export class UsersService {
     //Create instance a partir del dto
      const user = this.userRepository.create(dto);
      //save instance in db
+     this.logger.log(`Creating user with id: ${user.id}`);
      return this.userRepository.save(user);
     }
 }
