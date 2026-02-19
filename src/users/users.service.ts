@@ -6,6 +6,7 @@ import { LoggerService } from '../logger/logger.service';
 import {User} from '../entities/users.entity';
 import {UserInterface} from './interfaces/user.interface';
 import {InjectRepository} from '@nestjs/typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -30,6 +31,16 @@ export class UsersService {
         return this.userRepository.findOneBy({id:id});
     }
 
+    async update(id:string,update:UpdateUserDto):Promise<User>{
+        const user= await this.userRepository.findOneBy({id:id});
+        if(!user){
+            throw new Error('User not found');
+        }
+        const userUpdate= Object.assign(user,update);
+        this.logger.log(`Updating user: ${id}`);
+        return this.userRepository.save(userUpdate);
+
+    }
     //se implementa undto para el formato 
     create(dto:CreateUserDto):Promise<User>{
     //Create instance a partir del dto
