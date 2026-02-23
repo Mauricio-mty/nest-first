@@ -1,7 +1,10 @@
-import {IsString} from 'class-validator';
+import {IsString,ValidateNested} from 'class-validator';
+import { NameDto } from './name.dto';
+import {Type} from 'class-transformer';
 
 export class CreateUserDto{
     
-    @IsString()
-    name:string;
+    @ValidateNested()
+    @Type(()=>NameDto)
+    user:NameDto;;
 } 

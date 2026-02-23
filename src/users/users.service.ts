@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import {CreateUserDto} from './dto/create-user.dto';
 import { IdService } from '../utils/id/id.service';
@@ -17,7 +17,7 @@ export class UsersService {
         private readonly logger:LoggerService,
         //inyeccion del repositorio de la entidad user
         @InjectRepository(User)
-        private userRepository:Repository<User>
+        private  readonly userRepository:Repository<User>
     ){} 
     
 
@@ -42,9 +42,12 @@ export class UsersService {
 
     }
     //se implementa undto para el formato 
-    create(dto:CreateUserDto):Promise<User>{
+    create(newUser:CreateUserDto):Promise<User>{
     //Create instance a partir del dto
-     const user = this.userRepository.create(dto);
+    console.log (newUser);
+    //creamos una nueva instancia de user a partir del dto, utilizando el repositorio de typeorm
+     //const user = this.userRepository.create({ user: { name: newUser.name } } as DeepPartial<User>);
+     const user=this.userRepository.create(newUser as DeepPartial<User>);
      //save instance in db
      this.logger.log(`Creating user with id: ${user.id}`);
      return this.userRepository.save(user);
